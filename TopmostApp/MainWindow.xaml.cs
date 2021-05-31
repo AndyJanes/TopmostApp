@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
+using TopmostApp.Interop;
+using TopmostApp.Views;
+using static TopmostApp.Interop.NativeMethods;
 
 namespace TopmostApp
 {
@@ -7,6 +11,8 @@ namespace TopmostApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        public FlyoutWindow OnScreenFlyoutWindow { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -14,8 +20,47 @@ namespace TopmostApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            FlyoutHandler.Instance = new FlyoutHandler();
-            FlyoutHandler.Instance.Initialize();
+            OnScreenFlyoutWindow = new FlyoutWindow
+            {
+                Activatable = false,
+                Content = new FlyoutView(),
+                ZBandID = GetZBandID()
+            };
+
+            OnScreenFlyoutWindow.CreateWindow();
+            OnScreenFlyoutWindow.Show();
+        }
+
+        private ZBandID GetZBandID()
+        {
+            var zbid = ZBandID.Default;
+
+            using (var proc = Process.GetCurrentProcess())
+            {
+                var isImmersive = IsImmersiveProcess(proc.Handle);
+                var hasUiAccess = HasUiAccessProcess(proc.Handle);
+
+                zbid = isImmersive ? ZBandID.AboveLockUX : hasUiAccess ? ZBandID.UIAccess : ZBandID.Desktop;
+            }
+
+            return zbid;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            OnScreenFlyoutWindow.Content = new SecondView();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (OnScreenFlyoutWindow.IsVisible)
+            {
+                OnScreenFlyoutWindow.Hide();
+            }
+            else
+            {
+                OnScreenFlyoutWindow.Show();
+            }
         }
     }
 }

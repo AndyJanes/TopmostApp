@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <RuntimeIdentifiers>win10-x64;win10-x86</RuntimeIdentifiers>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x64;x86</Platforms>
@@ -27,6 +27,11 @@
 
   <ItemGroup>
     <None Remove="MainWindow.xaml" />
+    <None Remove="Views\SecondView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
   </ItemGroup>
 
 </Project>

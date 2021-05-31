@@ -7,10 +7,12 @@
         Width="800"
         Height="450"
         mc:Ignorable="d">
-    <Grid>
+    <WrapPanel>
         <Button Width="200"
                 Height="50"
                 Click="Button_Click"
                 Content="Open topmost window"/>
-    </Grid>
+        <Button Content="Set second content" Click="Button_Click_1"/>
+        <Button Content="Hide/Show" Click="Button_Click_2"/>
+    </WrapPanel>
 </Window>

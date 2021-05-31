@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace TopmostApp
+namespace TopmostApp.Views
 {
     /// <summary>
     /// Interaction logic for FlyoutView.xaml
