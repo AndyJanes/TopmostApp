@@ -26,11 +26,11 @@ namespace TopmostApp
         }
 
         public static readonly DependencyProperty FlyoutWindowProperty =
-        DependencyProperty.RegisterAttached(
-        "FlyoutWindow",
-        typeof(FlyoutWindow),
-        typeof(FlyoutWindow),
-        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+            DependencyProperty.RegisterAttached(
+            "FlyoutWindow",
+            typeof(FlyoutWindow),
+            typeof(FlyoutWindow),
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
         public static FlyoutWindow GetFlyoutWindow(DependencyObject obj)
         {
@@ -41,6 +41,5 @@ namespace TopmostApp
         {
             obj?.SetValue(FlyoutWindowProperty, flyoutWindow);
         }
-
     }
 }

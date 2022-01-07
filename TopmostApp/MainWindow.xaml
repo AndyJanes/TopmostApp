@@ -7,12 +7,10 @@
         Width="800"
         Height="450"
         mc:Ignorable="d">
-    <WrapPanel>
-        <Button Width="200"
-                Height="50"
-                Click="Button_Click"
-                Content="Open topmost window"/>
-        <Button Content="Set second content" Click="Button_Click_1"/>
-        <Button Content="Hide/Show" Click="Button_Click_2"/>
+    
+    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button Click="CreateTopmostWindowButton_Click" Content="Create topmost window"/>
+        <Button Click="ChangeContentButton_Click" Content="Change window content" Margin="10,0"/>
+        <Button Click="ChangeVisibilityButton_Click" Content="Change window visibility"/>
     </WrapPanel>
 </Window>

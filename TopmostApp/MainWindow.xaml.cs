@@ -11,55 +11,60 @@ namespace TopmostApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        public FlyoutWindow OnScreenFlyoutWindow { get; set; }
+        public FlyoutWindow FlyoutWindow { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CreateTopmostWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            OnScreenFlyoutWindow = new FlyoutWindow
+            FlyoutWindow = new FlyoutWindow
             {
                 Activatable = false,
                 Content = new FlyoutView(),
                 ZBandID = GetZBandID()
             };
 
-            OnScreenFlyoutWindow.CreateWindow();
-            OnScreenFlyoutWindow.Show();
+            FlyoutWindow.CreateWindow();
+            FlyoutWindow.Show();
         }
 
         private ZBandID GetZBandID()
         {
             var zbid = ZBandID.Default;
 
-            using (var proc = Process.GetCurrentProcess())
-            {
-                var isImmersive = IsImmersiveProcess(proc.Handle);
-                var hasUiAccess = HasUiAccessProcess(proc.Handle);
+            using var proc = Process.GetCurrentProcess();
 
-                zbid = isImmersive ? ZBandID.AboveLockUX : hasUiAccess ? ZBandID.UIAccess : ZBandID.Desktop;
-            }
+            var isImmersive = IsImmersiveProcess(proc.Handle);
+            var hasUiAccess = HasUiAccessProcess(proc.Handle);
+
+            zbid = isImmersive ? ZBandID.AboveLockUX : hasUiAccess ? ZBandID.UIAccess : ZBandID.Desktop;
 
             return zbid;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ChangeContentButton_Click(object sender, RoutedEventArgs e)
         {
-            OnScreenFlyoutWindow.Content = new SecondView();
+            if (FlyoutWindow is null)
+                return;
+
+            FlyoutWindow.Content = FlyoutWindow.Content is FlyoutView ? new SecondView() : (object)new FlyoutView();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void ChangeVisibilityButton_Click(object sender, RoutedEventArgs e)
         {
-            if (OnScreenFlyoutWindow.IsVisible)
+            if (FlyoutWindow is null)
+                return;
+
+            if (FlyoutWindow.IsVisible)
             {
-                OnScreenFlyoutWindow.Hide();
+                FlyoutWindow.Hide();
             }
             else
             {
-                OnScreenFlyoutWindow.Show();
+                FlyoutWindow.Show();
             }
         }
     }
